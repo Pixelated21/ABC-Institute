@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CoursesController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StudentsController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Proximity\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/logout',function (){
+    Auth::logout();
+    return redirect()->route('prox-login');
+})->name('logout');
+
 Route::get('/', function () {
     return view('welcome');
 })->name('prox-homepage');
@@ -22,6 +31,16 @@ Route::get('/login', function () {
     return view('Prøxïmïtÿ.Auth.login');
 })->name('prox-login');
 
-Route::get('/register',[RegisterController::class,'index'])->name('prox-register');
+Route::get('/register', function () {
+    return view('Prøxïmïtÿ.Auth.register');
+})->name('prox-register');
 
-Route::post('/on-register',[RegisterController::class,'store'])->name('prox-on-register');
+Route::group(['prefix' => 'admin'],function (){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/students', [StudentsController::class, 'index'])->name('admin.students');
+    Route::get('/teachers', [TeacherController::class, 'index'])->name('admin.teachers');
+    Route::get('/courses', [CoursesController::class, 'index'])->name('admin.courses');
+    Route::get('/teacher-assignment', [TeacherController::class, 'teacherAssignment'])->name('admin.teacher-assignment');
+    Route::get('/student-assignment', [StudentsController::class, 'studentAssignment'])->name('admin.student-assignment');
+});
+
