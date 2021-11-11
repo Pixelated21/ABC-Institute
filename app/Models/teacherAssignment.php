@@ -32,6 +32,9 @@ class teacherAssignment extends Model
     protected $fillable = [
         'teacher_id',
         'course_id',
+        'days',
+        'start',
+        'end'
 
     ];
     use HasFactory;
@@ -39,6 +42,8 @@ class teacherAssignment extends Model
     public function teacher(){
         return $this->belongsTo(teacher::class);
     }
+
+
     public function course(){
         return $this->belongsTo(course::class);
     }

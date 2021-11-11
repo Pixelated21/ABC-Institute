@@ -15,6 +15,20 @@
                 <form wire:submit.prevent="assignCourse" class="space-y-4 ">
 
 
+                    <x-Form.select wire:model="days">
+                        <x-select-options disabled selected title="Select Date"/>
+
+                        <x-select-options title="Monday - Friday"/>
+                        <x-select-options title="Monday"/>
+                        <x-select-options title="Tuesday"/>
+                        <x-select-options title="Wednesday"/>
+                        <x-select-options title="Thursday"/>
+                        <x-select-options title="Friday"/>
+                        <x-select-options title="Weekdays"/>
+
+
+                    </x-Form.select>
+
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                         <x-Form.select wire:model="teacher_id">
@@ -44,6 +58,12 @@
                             @endforelse
                         </x-Form.select>
 
+                        </div>
+
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <x-Form.date wire:model="start" type="time"/>
+
+                        <x-Form.date wire:model="end" type="time"/>
                     </div>
 
 
@@ -53,7 +73,7 @@
                             type="submit"
                             class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
                         >
-                            <span class="font-medium"> Assign Course </span>
+                            <span class="font-medium"> Add Schedule </span>
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -77,10 +97,10 @@
     </div>
 
 
-    <x-Table.table title="Teacher Assignment">
+    <x-Table.table title="Schedule">
 
         <x-slot name="button">
-            <button wire:click.prevent="assignCourseView">Assign Course</button>
+            <button wire:click.prevent="assignCourseView">Add Schedule</button>
         </x-slot>
 
         <x-slot name="thead">
@@ -88,9 +108,9 @@
                 <x-Table.table-head title="First Name"/>
                 <x-Table.table-head title="Last Name"/>
                 <x-Table.table-head title="Course Name"/>
+                <x-Table.table-head title="Days"/>
                 <x-Table.table-head title="Start Time"/>
                 <x-Table.table-head title="End Time"/>
-                <x-Table.table-head title="Action"/>
             </x-Table.table-row>
         </x-slot>
 
@@ -100,17 +120,9 @@
                     <x-Table.table-cell :title="$teacher_assignment->teacher->fname"/>
                     <x-Table.table-cell :title="$teacher_assignment->teacher->lname"/>
                     <x-Table.table-cell :title="$teacher_assignment->course->course_nm"/>
-                    <x-Table.table-cell :title="$teacher_assignment->course->start"/>
-                    <x-Table.table-cell :title="$teacher_assignment->course->end"/>
-                    <x-Table.table-cell>
-                        <x-slot name="title">
-
-                            <button wire:click="deleteTeacher({{$teacher}})"
-                                    class=" bg-red-600 duration-300 shadow-sm hover:shadow-md px-4 py-2 font-medium text-white rounded-md whitespace-no-wrap">
-                                Delete
-                            </button>
-                        </x-slot>
-                    </x-Table.table-cell>
+                    <x-Table.table-cell :title="$teacher_assignment->days"/>
+                    <x-Table.table-cell :title="$teacher_assignment->start"/>
+                    <x-Table.table-cell :title="$teacher_assignment->end"/>
                 </x-Table.table-row>
             @empty
                 <x-Table.table-row>

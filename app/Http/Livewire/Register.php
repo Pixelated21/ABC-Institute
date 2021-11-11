@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\student;
 use App\Models\User;
+use Auth;
 use Hash;
 use Livewire\Component;
 
@@ -44,6 +45,13 @@ class Register extends Component
            'gender' => $this->student->gender,
            'phone_nbr' => $this->student->phone_nbr,
         ]);
+
+        Auth::attempt([
+            'email' => $user->email,
+            'password' => $user->password
+        ]);
+
+        return redirect()->route('student.dashboard');
 
     }
 

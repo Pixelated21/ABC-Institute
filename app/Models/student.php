@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\student
@@ -15,22 +18,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $age
  * @property string $gender
  * @property string $phone_nbr
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|student newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|student newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|student query()
- * @method static \Illuminate\Database\Eloquent\Builder|student whereAge($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereFname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereGender($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereLname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student wherePhoneNbr($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|student whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $user
+ * @method static Builder|student newModelQuery()
+ * @method static Builder|student newQuery()
+ * @method static Builder|student query()
+ * @method static Builder|student whereAge($value)
+ * @method static Builder|student whereCreatedAt($value)
+ * @method static Builder|student whereFname($value)
+ * @method static Builder|student whereGender($value)
+ * @method static Builder|student whereId($value)
+ * @method static Builder|student whereLname($value)
+ * @method static Builder|student wherePhoneNbr($value)
+ * @method static Builder|student whereUpdatedAt($value)
+ * @method static Builder|student whereUserId($value)
+ * @mixin Eloquent
  */
 class student extends Model
 {
@@ -45,11 +48,13 @@ class student extends Model
         'age'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function group(){
+    public function group()
+    {
         return $this->belongsTo(group::class);
     }
 }

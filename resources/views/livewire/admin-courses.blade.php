@@ -14,23 +14,9 @@
 
                 <form wire:submit.prevent="addCourse" class="space-y-4 md:p-16 ">
 
-
                     <x-Form.input wire:model="course.course_nm" placeholder="Course Name"/>
 
-                    <x-Form.select wire:model="course.days">
-                        <x-select-options title="Select Course Days"/>
-                        <x-select-options title="Monday-Friday"/>
-                        <x-select-options title="Monday"/>
-                        <x-select-options title="Tuesday"/>
-                        <x-select-options title="Wednesday"/>
-                        <x-select-options title="Thursday"/>
-                        <x-select-options title="Friday"/>
-                    </x-Form.select>
 
-
-                    <x-Form.date type="time" wire:model="course.start" />
-
-                    <x-Form.date type="time" wire:model="course.end"/>
                     <div class="mt-4">
                         <button
                             {{--                            @click.prevent=" {{$alphName}} = false "--}}
@@ -72,20 +58,6 @@
 
                     <x-Form.input wire:model="course.course_nm" placeholder="Course Name"/>
 
-                    <x-Form.select wire:model="course.days">
-                        <x-select-options selected disabled title="Select Course Days"/>
-                        <x-select-options title="Monday-Friday"/>
-                        <x-select-options title="Monday"/>
-                        <x-select-options title="Tuesday"/>
-                        <x-select-options title="Wednesday"/>
-                        <x-select-options title="Thursday"/>
-                        <x-select-options title="Friday"/>
-                    </x-Form.select>
-
-
-                    <x-Form.date type="time" wire:model="course.start" />
-
-                    <x-Form.date type="time" wire:model="course.end"/>
 
                     <div class="mt-4">
                         <button
@@ -139,9 +111,6 @@
         <x-slot name="thead">
             <x-Table.table-row>
                 <x-Table.table-head title="Course Name"/>
-                <x-Table.table-head title="Days"/>
-                <x-Table.table-head title="Start"/>
-                <x-Table.table-head title="End"/>
                 <x-Table.table-head title="Action"/>
             </x-Table.table-row>
         </x-slot>
@@ -150,9 +119,6 @@
             @forelse($courses as $course)
                 <x-Table.table-row>
                     <x-Table.table-cell :title="$course->course_nm"/>
-                    <x-Table.table-cell :title="$course->days"/>
-                    <x-Table.table-cell :title="$course->start"/>
-                    <x-Table.table-cell :title="$course->end"/>
                     <x-Table.table-cell>
                         <x-slot name="title">
                             <button wire:click="editCoursesView({{$course}})"

@@ -48,7 +48,7 @@
                             type="submit"
                             class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
                         >
-                            <span class="font-medium"> Add User </span>
+                            <span class="font-medium"> Add Student </span>
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,12 +72,12 @@
     </div>
 
     @if ($editMode)
-        <div x-data="{editStudent: false}" x-on:edit-student-open.window="editStudent = true" x-on:add-student-close.window="editStudent = false">
+        <div x-data="{editStudent: false}" x-on:edit-student-open.window="editStudent = true" x-on:edit-student-close.window="editStudent = false">
             <x-Modals.modal-1 :errors="$errors->all()" alphName="editStudent">
 
                 <x-slot name="body">
 
-                    <form wire:submit.prevent="addStudent" class="space-y-4 ">
+                    <form wire:submit.prevent="updateStudent({{$student}})" class="space-y-4 ">
 
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -98,24 +98,16 @@
 
                         </div>
 
-                        <x-Form.input wire:model="user.email" placeholder="Email"/>
-
-
-                        <div class="text-center  grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <x-Form.input wire:model="student.phone_nbr" placeholder="Phone Number"/>
-
-                            <x-Form.password wire:model="password" placeholder="Password"
-                                             title="Password"/>
-                        </div>
 
 
                         <div class="mt-4">
                             <button
                                 {{--                            @click.prevent=" {{$alphName}} = false "--}}
                                 type="submit"
-                                class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
+                                class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-green-400 rounded-lg sm:w-auto"
                             >
-                                <span class="font-medium"> Add User </span>
+                                <span class="font-medium"> Update Student </span>
 
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

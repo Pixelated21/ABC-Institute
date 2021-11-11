@@ -22,25 +22,15 @@
 
                 <nav class="hidden text-sm font-medium space-x-8 md:flex">
 
-                    <a class="text-gray-500 @if(Route::is('admin.students')) font-bold text-blue-400 @endif" href="{{route('admin.students')}}">Students</a>
-                    <a class="text-gray-500 @if(Route::is('admin.teachers')) font-bold text-blue-400 @endif" href="{{route('admin.teachers')}}">Teacher</a>
-                    <a class="text-gray-500 @if(Route::is('admin.courses')) font-bold text-blue-400 @endif" href="{{route('admin.courses')}}">Courses</a>
-                    <a class="text-gray-500 @if(Route::is('admin.teacher-assignment')) font-bold text-blue-400 @endif" href="{{route('admin.teacher-assignment')}}">Schedule</a>
-                    <a class="text-gray-500 @if(Route::is('admin.student-assignment')) font-bold text-blue-400 @endif" href="{{route('admin.student-assignment')}}">Student Assignment</a>
+                    <a class="text-gray-500 @if(Route::is('teacher.dashboard')) font-bold text-blue-400 @endif" href="{{route('teacher.dashboard')}}">Dashboard</a>
 
                 </nav>
 
                 <div class="items-center justify-end flex-1 hidden space-x-4 sm:flex">
-                    @auth
-                        <form method="post" action="{{route('logout')}}">
-                            @csrf
-                            <button type="submit" class="px-5 py-2 text-sm font-medium text-white bg-red-600 rounded-lg" href=""> Log out </button>
-                        </form>
-                    @else
-                        <a class="px-5 py-2 text-sm font-medium text-gray-500 bg-gray-100 rounded-lg" href="{{route('prox-login')}}"> Log in </a>
-                        <a class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg" href="{{route('prox-register')}}"> Sign up </a>
-
-                    @endauth
+                    <form method="post" action="{{route('logout')}}">
+                        @csrf
+                        <button type="submit" class="px-5 py-2 text-sm font-medium text-white bg-red-600 rounded-lg" href=""> Log out </button>
+                    </form>
                 </div>
 
                 <div class="lg:hidden">

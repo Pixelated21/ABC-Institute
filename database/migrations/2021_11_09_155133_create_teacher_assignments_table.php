@@ -17,6 +17,9 @@ class CreateTeacherAssignmentsTable extends Migration
             $table->id();
             $table->foreignId('teacher_id')->constrained('teachers')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('course_id')->constrained('courses')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('days');
+            $table->timeTz('start');
+            $table->timeTz('end');
             $table->timestamps();
         });
     }

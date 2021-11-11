@@ -11,19 +11,24 @@ class AdminCourses extends Component
     public $editMode;
 
     protected $rules = [
-        'course.course_nm' => 'required|unique:courses,course_nm',
-        'course.days' => 'required',
-        'course.start' => 'required',
-        'course.end' => 'required'
+        'course.course_nm' => 'required',
+
     ];
 
     public function updated()
     {
+        if (!$this->editMode === null) {
+            $this->validate([
+                'course.course_nm' => 'required',
+            ]);
+        }
         $this->validate();
+
     }
 
     public function addCourseViewOpen()
     {
+        $this->editMode = null;
         $this->course->course_nm = '';
         $this->dispatchBrowserEvent('add-course-open');
     }
@@ -37,10 +42,6 @@ class AdminCourses extends Component
     {
         course::create([
             'course_nm' => $this->course->course_nm,
-            'days' => $this->course->days,
-            'start' => $this->course->start,
-            'end' => $this->course->end
-
         ]);
         $this->dispatchBrowserEvent('add-course-close');
         $this->dispatchBrowserEvent('course-added-successfully');
@@ -52,20 +53,22 @@ class AdminCourses extends Component
         $this->editMode = $course;
         $this->dispatchBrowserEvent('edit-course-open');
         $this->course->course_nm = $course['course_nm'];
+
     }
 
     public function updateCourse()
     {
+        $this->validate([
+            'course.course_nm' => 'required|unique:courses,course_nm',
 
+        ]);
         course::find($this->editMode['id'])
             ->update([
                 'course_nm' => $this->course->course_nm,
-                'days' => $this->course->days,
-                'start' => $this->course->start,
-                'end' => $this->course->end,
+
             ]);
 
-        $this->editMode = false;
+        $this->editMode = null;
         $this->dispatchBrowserEvent('edit-course-close');
         $this->dispatchBrowserEvent('course-updated-success');
 

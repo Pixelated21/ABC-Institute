@@ -55,6 +55,51 @@
         </x-Modals.modal-1>
     </div>
 
+    <div x-data="{editTeacher: false}" x-on:edit-teacher-open.window="editTeacher = true" x-on:edit-teacher-close.window="editTeacher = false">
+        <x-Modals.modal-1 :errors="$errors->all()" alphName="editTeacher">
+
+            <x-slot name="body">
+
+                <form wire:submit.prevent="updateTeacher" class="space-y-4 ">
+
+
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <x-Form.input wire:model="teacher.fname" placeholder="First Name"/>
+                        <x-Form.input wire:model="teacher.lname" placeholder="Last Name"/>
+                    </div>
+
+
+
+
+                    <div class="mt-4">
+                        <button
+                            {{--                            @click.prevent=" {{$alphName}} = false "--}}
+                            type="submit"
+                            class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
+                        >
+                            <span class="font-medium"> Add Teacher </span>
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5 ml-3"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                </form>
+
+            </x-slot>
+
+        </x-Modals.modal-1>
+    </div>
+
     <x-Table.table title="Teachers">
 
         <x-slot name="button">

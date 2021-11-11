@@ -12,11 +12,17 @@ class AdminTeacherAssignments extends Component
 {
     public $teacher_id;
     public $course_id;
+    public $days;
+    public $start;
+    public $end;
 
 
     protected $rules = [
       'teacher_id' => 'required',
       'course_id' => 'required',
+        'days' => 'required',
+        'start' => 'required',
+        'end' => 'required'
     ];
 
     public function updated(){
@@ -28,18 +34,19 @@ class AdminTeacherAssignments extends Component
     }
 
     public function assignCourse(){
+
         teacherAssignment::create([
            'teacher_id' => $this->teacher_id,
            'course_id' => $this->course_id,
+            'days' => $this->days,
+            'start' => $this->start,
+            'end' => $this->end
         ]);
 
         $this->dispatchBrowserEvent('assign-course-close');
 
     }
 
-    public function deleteTeacher($teacher){
-     teacherAssignment::find($teacher['id'])->delete();
-    }
 
 
     public function render()

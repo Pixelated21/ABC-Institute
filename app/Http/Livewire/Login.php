@@ -25,7 +25,17 @@ class Login extends Component
         if(Auth::attempt($this->validate())){
             $this->dispatchBrowserEvent('auth-success');
             sleep(2);
-            return redirect()->route('admin.students');
+
+            if(Auth::user()->role_id === 3){
+                return redirect()->route('student.dashboard');
+            }
+            if (Auth::user()->role_id === 2) {
+                return redirect()->route('teacher.dashboard');
+            }
+            if (Auth::user()->role_id === 1) {
+                return redirect()->route('admin.dashboard');
+            }
+
         }
        $this->dispatchBrowserEvent('auth-failed');
     }

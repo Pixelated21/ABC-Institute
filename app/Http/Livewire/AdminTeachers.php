@@ -14,6 +14,7 @@ class AdminTeachers extends Component
     public User $user;
     public teacher $teacher;
     public $password;
+    public $editMode;
 
     protected $rules = [
         'user.email' => 'required|unique:users,email',
@@ -32,7 +33,21 @@ class AdminTeachers extends Component
     }
 
     public function editTeachersView($teacher) {
-        dd($teacher);
+        $this->editMode = $teacher;
+        $this->teacher->fname = $teacher['fname'];
+        $this->teacher->lname = $teacher['lname'];
+        $this->dispatchBrowserEvent('edit-teacher-open');
+    }
+
+    public function updateTeacher(){
+
+        teacher::find($this->editMode['id'])->update([
+            'fname' => $this->teacher->fname,
+            'lname' => $this->teacher->lname
+        ]);
+
+        $this->dispatchBrowserEvent('edit-teacher-close');
+
     }
 
 
@@ -43,6 +58,7 @@ class AdminTeachers extends Component
         $user = User::create([
             'email' => $this->user->email,
             'password' => Hash::make($this->password),
+            'role_id' => 2
         ]);
 
         teacher::create([

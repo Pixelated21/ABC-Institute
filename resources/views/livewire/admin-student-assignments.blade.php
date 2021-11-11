@@ -20,7 +20,7 @@
                         <x-Form.select wire:model="student_id">
                             @forelse($students as $student)
                                 @if ($loop->first)
-                                    <x-select-options disabled selected title="Select A Teacher"/>
+                                    <x-select-options disabled selected title="Select A Student"/>
                                     <x-select-options :value="$student->id" :title="$student->fname.' '.$student->lname"/>
                                 @else
                                     <x-select-options :value="$student->id" :title="$student->fname.' '.$student->lname"/>
@@ -90,7 +90,6 @@
                 <x-Table.table-head title="First Name"/>
                 <x-Table.table-head title="Last Name"/>
                 <x-Table.table-head title="Course Name"/>
-                <x-Table.table-head title="Course Days"/>
                 <x-Table.table-head title="Action"/>
             </x-Table.table-row>
         </x-slot>
@@ -101,7 +100,6 @@
                     <x-Table.table-cell :title="$assigned->student->fname"/>
                     <x-Table.table-cell :title="$assigned->student->lname"/>
                     <x-Table.table-cell :title="$assigned->course->course_nm"/>
-                    <x-Table.table-cell :title="$assigned->course->days"/>
 
                     <x-Table.table-cell>
                         <x-slot name="title">

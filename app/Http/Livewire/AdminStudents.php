@@ -22,7 +22,7 @@ class AdminStudents extends Component
         'student.lname' => 'required',
         'student.age' => 'required',
         'student.gender' => 'required',
-        'student.phone_nbr' => 'required|unique:students,phone_nbr',
+        'student.phone_nbr' => 'required',
         'password' => 'required'
     ];
 
@@ -43,19 +43,36 @@ class AdminStudents extends Component
     }
 
     public function editStudentsView($student){
+
         $this->editMode = $student;
         $this->student->fname = $student['fname'];
         $this->student->lname = $student['lname'];
         $this->student->gender = $student['gender'];
+        $this->student->phone_nbr = $student['phone_nbr'];
         $this->student->age = $student['age'];
-        $this->user->email = $student['user']['email'];
 
         $this->dispatchBrowserEvent('edit-student-open');
     }
 
     public function updateStudent(){
 
+        $this->validate([
+            'student.fname' => 'required',
+            'student.lname' => 'required',
+            'student.age' => 'required',
+            'student.gender' => 'required',
+            'student.phone_nbr' => 'required',
+        ]);
 
+        student::find($this->editMode['id'])->update([
+            'fname' => $this->student->fname,
+            'lname' => $this->student->lname,
+            'age' => $this->student->age,
+            'gender' => $this->student->gender,
+            'phone_nbr' => $this->student->phone_nbr,
+        ]);
+
+        $this->dispatchBrowserEvent('edit-student-close');
 
     }
 
@@ -67,7 +84,15 @@ class AdminStudents extends Component
 
     public function addStudent(){
 
-        $this->validate();
+        $this->validate([
+            'user.email' => 'required|unique:users,email',
+            'student.fname' => 'required',
+            'student.lname' => 'required',
+            'student.age' => 'required',
+            'student.gender' => 'required',
+            'student.phone_nbr' => 'required|unique:students,phone_nbr',
+            'password' => 'required'
+        ]);
 
         $user = User::create([
             'email' => $this->user->email,
